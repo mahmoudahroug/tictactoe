@@ -1,0 +1,59 @@
+﻿<Window x:Class="tictactoe.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:tictactoe"
+        mc:Ignorable="d"
+        Title="Tictactoe" Height="470" Width="410" MinWidth="400" MinHeight="450">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="FontSize" Value="80" />
+        </Style>
+    </Window.Resources>
+        
+    <Grid Background="#ff8b4513">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="textdisplay" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" 
+                   Text="Player 1's turn" FontSize="30" RenderTransformOrigin="0,0" 
+                   HorizontalAlignment="Center" />
+        <Button x:Name="butt1" Grid.Row="2" Grid.Column="1" Content=""
+                Click="Button_Click"/>
+        <Button x:Name="butt2" Grid.Row="2" Grid.Column="2" Content=""
+                Foreground="Blue" Click="butt2_Click"/>
+        <Button x:Name="butt3" Grid.Row="2" Grid.Column="3" Content=""
+                Foreground="Blue" Click="butt3_Click"/>
+        <Button x:Name="butt4" Grid.Row="3" Grid.Column="1" Content=""
+                Foreground="Blue" Click="butt4_Click"/>
+        <Button x:Name="butt5" Grid.Row="3" Grid.Column="2" Content="" 
+                Foreground="Blue" Click="butt5_Click"/>
+        <Button x:Name="butt6" Grid.Row="3" Grid.Column="3" Content="" 
+                Click="butt6_Click"/>
+        <Button x:Name="butt7" Grid.Row="4" Grid.Column="1" Content=""
+                Click="butt7_Click"/>
+        <Button x:Name="butt8" Grid.Row="4" Grid.Column="2" Content="" 
+                Click="butt8_Click"/>
+        <Button x:Name="butt9" Grid.Row="4" Grid.Column="3" Content=""
+                Click="butt9_Click"/>
+        <Button x:Name="Play" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3"
+                Foreground="White" FontSize="30" Content="Play again"
+                Visibility="Collapsed" Click="Play_Click"/>
+
+    </Grid>
+</Window>
