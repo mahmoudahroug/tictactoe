@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
@@ -67,7 +68,7 @@ namespace tictactoe
             {
                 albutt[numButton].Content = xo[player];
                 albutt[numButton].Foreground = colour[player];
-                ticgb[0, 0] = xo[player];
+                ticgb[numButton/3, numButton%3] = xo[player];
                 counter++;
 
                 win = IsWinner();
@@ -98,49 +99,8 @@ namespace tictactoe
         private void XO_Click(object sender, RoutedEventArgs e)
         {
             // gets index of button pressed
-            int Buttonpressed = ((Button)sender).Name[Name.Length - 1] - '0' - 1;
+            int Buttonpressed = ((Button)sender).Name[4] - '0' - 1;
             placeXO(Buttonpressed);
-        }
-
-        private void butt2_Click(object sender, RoutedEventArgs e)
-        {
-            placeXO(1);
-        }
-
-        private void butt3_Click(object sender, RoutedEventArgs e)
-        {
-            placeXO(2);
-        }
-        
-
-        private void butt4_Click(object sender, RoutedEventArgs e)
-        {
-            placeXO(3);
-        }
-
-        private void butt5_Click(object sender, RoutedEventArgs e)
-        {
-            placeXO(4);
-        }
-
-        private void butt6_Click(object sender, RoutedEventArgs e)
-        {
-            placeXO(5);
-        }
-
-        private void butt7_Click(object sender, RoutedEventArgs e)
-        {
-            placeXO(6);
-        }
-
-        private void butt8_Click(object sender, RoutedEventArgs e)
-        {
-            placeXO(7);
-        }
-
-        private void butt9_Click(object sender, RoutedEventArgs e)
-        {
-            placeXO(8);
         }
 
         private void Play_Click(object sender, RoutedEventArgs e)
