@@ -68,6 +68,7 @@ namespace tictactoe
             {
                 albutt[numButton].Content = xo[player];
                 albutt[numButton].Foreground = colour[player];
+                // map button to array
                 ticgb[numButton/3, numButton%3] = xo[player];
                 counter++;
 

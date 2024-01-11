@@ -13,7 +13,7 @@
         </Style>
     </Window.Resources>
         
-    <Grid Background="#ff8b4513">
+    <Grid Background="#304262">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition />
