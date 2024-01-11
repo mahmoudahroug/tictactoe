@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,17 +21,47 @@ namespace tictactoe
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-
-        char[,] ticgb = { {'0', '0', '0'},{'0', '0', '0'},{'0', '0', '0'} };
+        char[,] ticgb = { { '0', '0', '0' }, { '0', '0', '0' }, { '0', '0', '0' } };
         int player = 0;
         char[] xo = { 'X', 'O' };
         SolidColorBrush[] colour = { new SolidColorBrush(Colors.Blue), new SolidColorBrush(Colors.Red) };
         bool win = false;
         int counter = 0;
+        Button[] albutt;
+        public MainWindow()
+        {
+            InitializeComponent();
+            albutt = new Button[] { butt1, butt2, butt3, butt4, butt5, butt6, butt7, butt8, butt9 };
+        }
+        private bool IsWin(int player)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (ticgb[0, i] == ticgb[1, i] && ticgb[2, i] == ticgb[1, i] && ticgb[2, i] != '0')
+                {
+                    textdisplay.Text = "Player " + (player + 1).ToString() + " wins";
+                    return true;
+                }
+                else if (ticgb[i, 0] == ticgb[i, 1] && ticgb[i, 2] == ticgb[i, 1] && ticgb[i, 2] != '0')
+                {
+                    textdisplay.Text = "Player " + (player + 1).ToString() + " wins";
+                    return true;
+                }
+            }
+            if (ticgb[0, 0] == ticgb[1, 1] && ticgb[1, 1] == ticgb[2, 2] && ticgb[2, 2] != '0')
+            {
+                textdisplay.Text = "Player " + (player + 1).ToString() + " wins";
+                return true;
+            }
+            else if (ticgb[0, 2] == ticgb[1, 1] && ticgb[1, 1] == ticgb[2, 0] && ticgb[2, 0] != '0')
+            {
+                textdisplay.Text = "Player " + (player + 1).ToString() + " wins";
+                return true;
+            }
+            return false;
+        } 
+        
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (butt1.Content == "")
@@ -39,31 +70,8 @@ namespace tictactoe
                 ticgb[0, 0] = xo[player];
                 butt1.Foreground = colour[player];
                 counter++;
-                Button[] albutt = { butt1, butt2, butt3, butt4, butt5, butt6, butt7, butt8, butt9 };
-                for (int i = 0; i < 3; i++)
-                {
-                    if (ticgb[0, i] == ticgb[1, i] && ticgb[2, i] == ticgb[1, i] && ticgb[2, i] != '0')
-                    {
-                        textdisplay.Text = "Player " + (player + 1).ToString() + " wins";
-                        win = true;
-                    }
-                    else if (ticgb[i, 0] == ticgb[i, 1] && ticgb[i, 2] == ticgb[i, 1] && ticgb[i, 2] != '0')
-                    {
-                        textdisplay.Text = "Player " + (player + 1).ToString() + " wins";
-                        win = true;
-                    }
-                }
-                if (ticgb[0, 0] == ticgb[1, 1] && ticgb[1, 1] == ticgb[2, 2] && ticgb[2, 2] != '0')
-                {
-                    textdisplay.Text = "Player " + (player + 1).ToString() + " wins";
-                    win = true;
-                }
-                else if (ticgb[0, 2] == ticgb[1, 1] && ticgb[1, 1] == ticgb[2, 0] && ticgb[2, 0] != '0')
-                {
-                    textdisplay.Text = "Player " + (player + 1).ToString() + " wins";
-                    win = true;
-                }
-                else if (counter >= 9 && win == false)
+                
+                if (counter >= 9 && win == false)
                 {
                     textdisplay.Text = "It's a draw";
                     Play.Visibility = Visibility.Visible;
@@ -99,7 +107,6 @@ namespace tictactoe
                 ticgb[0, 1] = xo[player];
                 butt2.Foreground = colour[player];
                 counter++;
-                Button[] albutt = { butt1, butt2, butt3, butt4, butt5, butt6, butt7, butt8, butt9 };
                 for (int i = 0; i < 3; i++)
                 {
                     if (ticgb[0, i] == ticgb[1, i] && ticgb[2, i] == ticgb[1, i] && ticgb[2, i] != '0')
@@ -160,7 +167,6 @@ namespace tictactoe
                 ticgb[0, 2] = xo[player];
                 butt3.Foreground = colour[player];
                 counter++;
-                Button[] albutt = { butt1, butt2, butt3, butt4, butt5, butt6, butt7, butt8, butt9 };
                 for (int i = 0; i < 3; i++)
                 {
                     if (ticgb[0, i] == ticgb[1, i] && ticgb[2, i] == ticgb[1, i] && ticgb[2, i] != '0')
@@ -212,6 +218,7 @@ namespace tictactoe
                 }
             }
         }
+        
 
         private void butt4_Click(object sender, RoutedEventArgs e)
         {
@@ -221,7 +228,6 @@ namespace tictactoe
                 ticgb[1, 0] = xo[player];
                 butt4.Foreground = colour[player];
                 counter++;
-                Button[] albutt = { butt1, butt2, butt3, butt4, butt5, butt6, butt7, butt8, butt9 };
                 for (int i = 0; i < 3; i++)
                 {
                     if (ticgb[0, i] == ticgb[1, i] && ticgb[2, i] == ticgb[1, i] && ticgb[2, i] != '0')
@@ -287,7 +293,6 @@ namespace tictactoe
                 ticgb[1, 1] = xo[player];
                 butt5.Foreground = colour[player];
                 counter++;
-                Button[] albutt = { butt1, butt2, butt3, butt4, butt5, butt6, butt7, butt8, butt9 };
                 for (int i = 0; i < 3; i++)
                 {
                     if (ticgb[0, i] == ticgb[1, i] && ticgb[2, i] == ticgb[1, i] && ticgb[2, i] != '0')
@@ -348,7 +353,6 @@ namespace tictactoe
                 ticgb[1, 2] = xo[player];
                 butt6.Foreground = colour[player];
                 counter++;
-                Button[] albutt = { butt1, butt2, butt3, butt4, butt5, butt6, butt7, butt8, butt9 };
                 for (int i = 0; i < 3; i++)
                 {
                     if (ticgb[0, i] == ticgb[1, i] && ticgb[2, i] == ticgb[1, i] && ticgb[2, i] != '0')
@@ -409,7 +413,6 @@ namespace tictactoe
                 ticgb[2, 0] = xo[player];
                 butt7.Foreground = colour[player];
                 counter++;
-                Button[] albutt = { butt1, butt2, butt3, butt4, butt5, butt6, butt7, butt8, butt9 };
                 for (int i = 0; i < 3; i++)
                 {
                     if (ticgb[0, i] == ticgb[1, i] && ticgb[2, i] == ticgb[1, i] && ticgb[2, i] != '0')
@@ -470,7 +473,6 @@ namespace tictactoe
                 ticgb[2, 1] = xo[player];
                 butt8.Foreground = colour[player];
                 counter++;
-                Button[] albutt = { butt1, butt2, butt3, butt4, butt5, butt6, butt7, butt8, butt9 };
                 for (int i = 0; i < 3; i++)
                 {
                     if (ticgb[0, i] == ticgb[1, i] && ticgb[2, i] == ticgb[1, i] && ticgb[2, i] != '0')
@@ -531,7 +533,6 @@ namespace tictactoe
                 ticgb[2, 2] = xo[player];
                 butt9.Foreground = colour[player];
                 counter++;
-                Button[] albutt = { butt1, butt2, butt3, butt4, butt5, butt6, butt7, butt8, butt9 };
                 for (int i = 0; i < 3; i++)
                 {
                     if (ticgb[0, i] == ticgb[1, i] && ticgb[2, i] == ticgb[1, i] && ticgb[2, i] != '0')
@@ -586,7 +587,6 @@ namespace tictactoe
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            Button[] albutt = { butt1, butt2, butt3, butt4, butt5, butt6, butt7, butt8, butt9 };
             foreach (Button butt in albutt)
             {
                 butt.IsEnabled = true;
