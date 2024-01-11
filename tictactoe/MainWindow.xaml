@@ -34,23 +34,23 @@
                    Text="Player 1's turn" FontSize="30" RenderTransformOrigin="0,0" 
                    HorizontalAlignment="Center" />
         <Button x:Name="butt1" Grid.Row="2" Grid.Column="1" Content=""
-                Click="Button_Click"/>
+                Click="XO_Click"/>
         <Button x:Name="butt2" Grid.Row="2" Grid.Column="2" Content=""
-                Foreground="Blue" Click="butt2_Click"/>
+                Foreground="Blue" Click="XO_Click"/>
         <Button x:Name="butt3" Grid.Row="2" Grid.Column="3" Content=""
-                Foreground="Blue" Click="butt3_Click"/>
+                Foreground="Blue" Click="XO_Click"/>
         <Button x:Name="butt4" Grid.Row="3" Grid.Column="1" Content=""
-                Foreground="Blue" Click="butt4_Click"/>
+                Foreground="Blue" Click="XO_Click"/>
         <Button x:Name="butt5" Grid.Row="3" Grid.Column="2" Content="" 
-                Foreground="Blue" Click="butt5_Click"/>
+                Foreground="Blue" Click="XO_Click"/>
         <Button x:Name="butt6" Grid.Row="3" Grid.Column="3" Content="" 
-                Click="butt6_Click"/>
+                Click="XO_Click"/>
         <Button x:Name="butt7" Grid.Row="4" Grid.Column="1" Content=""
-                Click="butt7_Click"/>
+                Click="XO_Click"/>
         <Button x:Name="butt8" Grid.Row="4" Grid.Column="2" Content="" 
-                Click="butt8_Click"/>
+                Click="XO_Click"/>
         <Button x:Name="butt9" Grid.Row="4" Grid.Column="3" Content=""
-                Click="butt9_Click"/>
+                Click="XO_Click"/>
         <Button x:Name="Play" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3"
                 Foreground="White" FontSize="30" Content="Play again"
                 Visibility="Collapsed" Click="Play_Click"/>
