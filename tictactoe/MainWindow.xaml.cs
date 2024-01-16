@@ -23,7 +23,9 @@ namespace tictactoe
     /// </summary>
     public partial class MainWindow : Window
     {
-        char[,] ticgb = { { '0', '0', '0' }, { '0', '0', '0' }, { '0', '0', '0' } };
+        char[,] ticgb = { { '0', '0', '0' }, 
+                          { '0', '0', '0' }, 
+                          { '0', '0', '0' } };
         int player = 0;
         char[] xo = { 'X', 'O' };
         SolidColorBrush[] colour = { new SolidColorBrush(Colors.Blue), new SolidColorBrush(Colors.Red) };
@@ -39,25 +41,15 @@ namespace tictactoe
         {
             for (int i = 0; i < 3; i++)
             {
-                if (ticgb[0, i] == ticgb[1, i] && ticgb[2, i] == ticgb[1, i] && ticgb[2, i] != '0')
+                if (ticgb[0, i] == ticgb[1, i] && ticgb[2, i] == ticgb[1, i] && ticgb[2, i] != '0'
+                    || (ticgb[i, 0] == ticgb[i, 1] && ticgb[i, 2] == ticgb[i, 1] && ticgb[i, 2] != '0'))
                 {
-                    textdisplay.Text = "Player " + (player + 1).ToString() + " wins";
-                    return true;
-                }
-                else if (ticgb[i, 0] == ticgb[i, 1] && ticgb[i, 2] == ticgb[i, 1] && ticgb[i, 2] != '0')
-                {
-                    textdisplay.Text = "Player " + (player + 1).ToString() + " wins";
                     return true;
                 }
             }
-            if (ticgb[0, 0] == ticgb[1, 1] && ticgb[1, 1] == ticgb[2, 2] && ticgb[2, 2] != '0')
+            if (ticgb[0, 0] == ticgb[1, 1] && ticgb[1, 1] == ticgb[2, 2] && ticgb[2, 2] != '0'
+                || (ticgb[0, 2] == ticgb[1, 1] && ticgb[1, 1] == ticgb[2, 0] && ticgb[2, 0] != '0'))
             {
-                textdisplay.Text = "Player " + (player + 1).ToString() + " wins";
-                return true;
-            }
-            else if (ticgb[0, 2] == ticgb[1, 1] && ticgb[1, 1] == ticgb[2, 0] && ticgb[2, 0] != '0')
-            {
-                textdisplay.Text = "Player " + (player + 1).ToString() + " wins";
                 return true;
             }
             return false;
@@ -74,20 +66,21 @@ namespace tictactoe
 
                 win = IsWinner();
                 // if last turn and no win
-                if (counter >= 9 && win == false)
+                if (counter >= 9 && !win)
                 {
                     textdisplay.Text = "It's a draw";
                     Play.Visibility = Visibility.Visible;
                 }
-                else if (win == false)
+                else if (!win)
                 {
                     // switch player
                     player = player == 0 ? 1 : 0;
 
                     textdisplay.Text = "Player " + (player + 1).ToString() + "'s turn";
                 }
-                if (win == true)
+                if (win)
                 {
+                    textdisplay.Text = "Player " + (player + 1).ToString() + " wins";
                     foreach (Button butt in albutt)
                     {
                         butt.IsEnabled = false;
@@ -99,7 +92,7 @@ namespace tictactoe
 
         private void XO_Click(object sender, RoutedEventArgs e)
         {
-            // gets index of button pressed
+            // get index of button pressed
             int Buttonpressed = ((Button)sender).Name[4] - '0' - 1;
             placeXO(Buttonpressed);
         }
@@ -119,10 +112,20 @@ namespace tictactoe
                 }
             }
             player = 0;
-            textdisplay.Text = "Player 1's turn";
-            Play.Visibility = Visibility.Collapsed;
             counter = 0;
             win = false;
+            Play.Visibility = Visibility.Collapsed;
+            textdisplay.Text = "Player 1's turn";
+        }
+        private void loadBoard()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    albutt[3*i + j].Content = XOBoard.ticgb[i,j];
+                }
+            }
         }
     }
 }
