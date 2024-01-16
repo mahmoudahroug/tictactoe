@@ -13,11 +13,13 @@ namespace tictactoe
         public static char[,] ticgb = { { '0', '0', '0' },
                                       { '0', '0', '0' },
                                       { '0', '0', '0' } };
-        public static int player = 0;
-        static char[] xo = { 'X', 'O' };
+        private static int player = 0;
+        private static int winner;
+        public static char[] xo = { 'X', 'O' };
         public static int gameTurn = 0;
-        public static int winner;
 
+        public static int getPlayer() {  return player+1; }
+        public static int getWinner() {  return winner+1; }
         public static bool IsWinner()
         {
             for (int i = 0; i < 3; i++)
