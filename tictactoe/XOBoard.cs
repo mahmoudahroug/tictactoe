@@ -13,10 +13,12 @@ namespace tictactoe
         public static char[,] ticgb = { { '0', '0', '0' },
                                       { '0', '0', '0' },
                                       { '0', '0', '0' } };
-        protected static int player = 0;
+        public static int player = 0;
         static char[] xo = { 'X', 'O' };
-        protected static int gameTurn = 0;
-        protected static bool IsWinner()
+        public static int gameTurn = 0;
+        public static int winner;
+
+        public static bool IsWinner()
         {
             for (int i = 0; i < 3; i++)
             {
@@ -33,7 +35,7 @@ namespace tictactoe
             }
             return false;
         }
-        protected static void resetGame()
+        public static void resetGame()
         {
             for (int i = 0; i < 3; i++)
             {
@@ -45,6 +47,23 @@ namespace tictactoe
             player = 0;
             gameTurn = 0;
         }
+        public static void placeXO(int x, int y)
+        {
+            if (ticgb[x, y] != '0')
+            {
+                return;
+            }
+            ticgb[x, y] = xo[player];
+            gameTurn++;
+            if (IsWinner())
+            {
+                winner = player;
+                return;
+            }
+            //switch player
+            player = player == 0 ? 1 : 0;
+        }
+                
     }
 
 }
