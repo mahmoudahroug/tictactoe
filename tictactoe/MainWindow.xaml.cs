@@ -42,17 +42,13 @@ namespace tictactoe
                 XOBoard.placeXO(numButton/3, numButton%3);
                 loadBoard();
 
-                win = XOBoard.IsWinner();
+                win = XOBoard.checkWin();
                 // if last turn and no win
                 if (XOBoard.gameTurn >= 9 && !win)
                 {
                     textdisplay.Text = "It's a draw";
                     Play.Visibility = Visibility.Visible;
                     return;
-                }
-                else if (!win)
-                {
-                    textdisplay.Text = "Player " + XOBoard.getPlayer().ToString() + "'s turn";
                 }
                 if (win)
                 {
@@ -64,6 +60,10 @@ namespace tictactoe
                     Play.Visibility = Visibility.Visible;
                     return;
                 }
+                else
+                {
+                    textdisplay.Text = "Player " + XOBoard.getPlayer().ToString() + "'s turn";
+                }
 
                 // if against computer make computer play here
                 if(computer) { bot.aiplay();}
@@ -74,7 +74,7 @@ namespace tictactoe
             XOBoard.placeXO(x, y);
             loadBoard();
 
-            win = XOBoard.IsWinner();
+            win = XOBoard.checkWin();
             // if last turn and no win
             if (XOBoard.gameTurn >= 9 && !win)
             {
