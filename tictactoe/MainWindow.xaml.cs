@@ -26,10 +26,13 @@ namespace tictactoe
         SolidColorBrush[] colour = { new SolidColorBrush(Colors.Blue), new SolidColorBrush(Colors.Red) };
         bool win = false;
         Button[] albutt;
+        bool computer = true;
+        AIbot bot;
         public MainWindow()
         {
             InitializeComponent();
             albutt = new Button[] { butt1, butt2, butt3, butt4, butt5, butt6, butt7, butt8, butt9 };
+            bot = new AIbot(this);
         }
         private void placeXO(int numButton)
         {
@@ -45,6 +48,7 @@ namespace tictactoe
                 {
                     textdisplay.Text = "It's a draw";
                     Play.Visibility = Visibility.Visible;
+                    return;
                 }
                 else if (!win)
                 {
@@ -58,7 +62,40 @@ namespace tictactoe
                         butt.IsEnabled = false;
                     }
                     Play.Visibility = Visibility.Visible;
+                    return;
                 }
+
+                // if against computer make computer play here
+                if(computer) { bot.aiplay();}
+            }
+        }
+        public void placeXO(int x, int y)
+        {
+            XOBoard.placeXO(x, y);
+            loadBoard();
+
+            win = XOBoard.IsWinner();
+            // if last turn and no win
+            if (XOBoard.gameTurn >= 9 && !win)
+            {
+                textdisplay.Text = "It's a draw";
+                Play.Visibility = Visibility.Visible;
+                return;
+            }
+            else if (!win)
+            {
+                textdisplay.Text = "Player " + XOBoard.getPlayer().ToString() + "'s turn";
+
+            }
+            if (win)
+            {
+                textdisplay.Text = "Player " + XOBoard.getWinner().ToString() + " wins";
+                foreach (Button butt in albutt)
+                {
+                    butt.IsEnabled = false;
+                }
+                Play.Visibility = Visibility.Visible;
+                return;
             }
         }
 
