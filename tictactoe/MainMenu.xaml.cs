@@ -20,23 +20,25 @@ namespace tictactoe
     /// </summary>
     public partial class MainMenu : Page
     {
-        MainWindow m;
-        public MainMenu(MainWindow m)
+        Board m;
+        MainWindow mw;
+        public MainMenu(Board m, MainWindow mw)
         {
             InitializeComponent();
             this.m = m;
+            this.mw = mw;
         }
 
         private void pvc_Click(object sender, RoutedEventArgs e)
         {
             m.setComputer(true);
-            NavigationService.Navigate(m);
+            mw.Main.Content = m;
         }
 
         private void pvp_Click(object sender, RoutedEventArgs e)
         {
             m.setComputer(false);
-            NavigationService.Navigate(m);
+            mw.Main.Content= m;
         }
     }
 }

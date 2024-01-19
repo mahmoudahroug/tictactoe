@@ -9,13 +9,13 @@ namespace tictactoe
 {
     internal class AIbot
     {
-        MainWindow m;
+        Board m;
         Dictionary<int, int> scores = new Dictionary<int, int>{
             { 0, 0 },
             {XOBoard.human+1, -1 },
             { XOBoard.ai+1, 1 }
         };
-        public AIbot(MainWindow m) {
+        public AIbot(Board m) {
             this.m = m;
         }
         public void aiplay()

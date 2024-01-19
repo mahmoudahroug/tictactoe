@@ -5,74 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:tictactoe"
         mc:Ignorable="d"
-        Title="Tictactoe" Height="470" Width="410" MinWidth="400" MinHeight="450">
+        Title="Tictactoe" Height="500" Width="450" MinWidth="430" MinHeight="500">
     <Window.Resources>
-        <Style TargetType="Button">
-            <!--<Setter Property="OverridesDefaultStyle" Value="True" />-->
-            <Setter Property="Background" Value="Black" />
-            <Setter Property="FontSize" Value="80" />
-            <!--<Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid Background="{TemplateBinding Background}">
-                            <ContentPresenter x:Name="MyContentPresenter" 
-                                          Content="{TemplateBinding Content}"
-                                          HorizontalAlignment="Center" 
-                                          VerticalAlignment="Center" />
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>-->
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" Value="Black" />
-                    <Setter Property="FontSize" Value="80" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
         
+    </Window.Resources>
+
     <Grid Background="#304262">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20"/>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition Width="20" />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="auto"/>
             <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="textdisplay" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" 
-                   Text="Player 1's turn" FontSize="30" RenderTransformOrigin="0,0" 
-                   HorizontalAlignment="Center" />
-        <Button x:Name="butt1" Grid.Row="2" Grid.Column="1" Content=""
-                Click="XO_Click"/>
-        <Button x:Name="butt2" Grid.Row="2" Grid.Column="2" Content=""
-                Foreground="Blue" Click="XO_Click"/>
-        <Button x:Name="butt3" Grid.Row="2" Grid.Column="3" Content=""
-                Foreground="Blue" Click="XO_Click"/>
-        <Button x:Name="butt4" Grid.Row="3" Grid.Column="1" Content=""
-                Foreground="Blue" Click="XO_Click"/>
-        <Button x:Name="butt5" Grid.Row="3" Grid.Column="2" Content="" 
-                Foreground="Blue" Click="XO_Click"/>
-        <Button x:Name="butt6" Grid.Row="3" Grid.Column="3" Content="" 
-                Click="XO_Click"/>
-        <Button x:Name="butt7" Grid.Row="4" Grid.Column="1" Content=""
-                Click="XO_Click"/>
-        <Button x:Name="butt8" Grid.Row="4" Grid.Column="2" Content="" 
-                Click="XO_Click"/>
-        <Button x:Name="butt9" Grid.Row="4" Grid.Column="3" Content=""
-                Click="XO_Click"/>
-        <Button x:Name="Play" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3"
-                Foreground="White" FontSize="30" Content="Play again"
-                Visibility="Collapsed" Click="Play_Click"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Frame x:Name="Main" NavigationUIVisibility="Hidden" Grid.Column="0" Grid.Row="0"/>
 
     </Grid>
 </Window>
