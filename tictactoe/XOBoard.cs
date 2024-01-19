@@ -11,8 +11,8 @@ namespace tictactoe
     internal class XOBoard
     {
         public static char[,] ticgb = { { '0', '0', '0' },
-                                      { '0', '0', '0' },
-                                      { '0', '0', '0' } };
+                                        { '0', '0', '0' },
+                                        { '0', '0', '0' } };
         private static int player = 0;
         public static char[] xo = { 'X', 'O' };
         public static int gameTurn = 0;
@@ -89,13 +89,8 @@ namespace tictactoe
             }
             ticgb[x, y] = xo[player];
             gameTurn++;
-            //if (checkWin())
-            //{
-            //    winner = player;
-            //    return;
-            //}
-            //switch player
-            player = player == 0 ? 1 : 0;
+            // switch player
+            player = 1-player;
         }
                 
     }

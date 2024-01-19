@@ -10,6 +10,11 @@ namespace tictactoe
     internal class AIbot
     {
         MainWindow m;
+        Dictionary<int, int> scores = new Dictionary<int, int>{
+            { 0, 0 },
+            {XOBoard.human+1, -1 },
+            { XOBoard.ai+1, 1 }
+        };
         public AIbot(MainWindow m) {
             this.m = m;
         }
@@ -52,7 +57,7 @@ namespace tictactoe
             }
             if (win)
             {
-                return XOBoard.getWinner() == XOBoard.ai+1? 1: -1;
+                return scores[XOBoard.getWinner()];
             }
             int bestScore;
             if (maximize)

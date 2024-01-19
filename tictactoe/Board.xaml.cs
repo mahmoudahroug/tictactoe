@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Net.NetworkInformation;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,23 +16,20 @@ using System.Windows.Shapes;
 namespace tictactoe
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Board.xaml
     /// </summary>
-    public partial class MainWindow : Window
-    {
-        // player colors
+    public partial class Board : Page
+    {// player colors
         SolidColorBrush[] colour = { new SolidColorBrush(Colors.Blue), new SolidColorBrush(Colors.Red) };
         bool win = false;
         Button[] albutt;
         // play against ai?
         bool computer = true;
         AIbot bot;
-        MainMenu mainMenu;
-        public MainWindow()
+        public Board()
         {
             InitializeComponent();
-            mainMenu = new MainMenu(this);
-            
+
             albutt = new Button[] { butt1, butt2, butt3, butt4, butt5, butt6, butt7, butt8, butt9 };
             bot = new AIbot(this);
         }
@@ -48,7 +42,7 @@ namespace tictactoe
             if (albutt[numButton].Content.ToString() == "")
             {
                 // map button to array
-                XOBoard.placeXO(numButton/3, numButton%3);
+                XOBoard.placeXO(numButton / 3, numButton % 3);
                 loadBoard();
 
                 win = XOBoard.checkWin();
@@ -75,7 +69,7 @@ namespace tictactoe
                 }
 
                 // if against computer make computer play here
-                if(computer) { bot.aiplay();}
+                if (computer) { bot.aiplay(); }
             }
         }
         public void placeXO(int x, int y)
@@ -133,8 +127,8 @@ namespace tictactoe
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    albutt[3*i + j].Content = XOBoard.ticgb[i,j] == '0'? "": XOBoard.ticgb[i,j].ToString();
-                    albutt[3 * i + j].Foreground = XOBoard.ticgb[i, j] == 'X'? colour[0] : colour[1];
+                    albutt[3 * i + j].Content = XOBoard.ticgb[i, j] == '0' ? "" : XOBoard.ticgb[i, j].ToString();
+                    albutt[3 * i + j].Foreground = XOBoard.ticgb[i, j] == 'X' ? colour[0] : colour[1];
                 }
             }
         }
