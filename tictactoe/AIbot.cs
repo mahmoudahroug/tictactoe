@@ -12,21 +12,14 @@ namespace tictactoe
         Board m;
         Dictionary<int, int> scores = new Dictionary<int, int>{
             { 0, 0 },
-            {XOBoard.human+1, -1 },
-            { XOBoard.ai+1, 1 }
+            {XOBoard.human+1, -10 },
+            { XOBoard.ai+1, 10 }
         };
         public AIbot(Board m) {
             this.m = m;
         }
         public void aiplay()
         {
-            //Random r = new Random();
-            //int x = r.Next(3);
-            //int y = r.Next(3);
-            //while (XOBoard.ticgb[x, y] != '0') {
-            //    x = r.Next(3);
-            //    y = r.Next(3);
-            //}
             int bestScore = Int32.MinValue;
             Point bestMove = new Point();
             for(int i = 0; i < 3; i++)
@@ -36,7 +29,7 @@ namespace tictactoe
                     if (XOBoard.ticgb[i,j] == '0')
                     {
                         XOBoard.ticgb[i, j] = XOBoard.xo[XOBoard.ai];
-                        int score = minimax(false);
+                        int score = minimax(false, 0);
                         XOBoard.ticgb[i, j] = '0';
                         if(score > bestScore)
                         {
@@ -48,7 +41,7 @@ namespace tictactoe
             }
             m.placeXO(bestMove.X, bestMove.Y);
         }
-        private int minimax(bool maximize)
+        private int minimax(bool maximize, int depth)
         {
             bool win = XOBoard.checkWin();
             if(!win && XOBoard.gameOver())
@@ -70,7 +63,7 @@ namespace tictactoe
                         if (XOBoard.ticgb[i, j] == '0')
                         {
                             XOBoard.ticgb[i, j] = XOBoard.xo[XOBoard.ai];
-                            int score = minimax(false);
+                            int score = minimax(false, depth+1) - depth;
                             XOBoard.ticgb[i, j] = '0';
                             bestScore = Math.Max(score, bestScore);
                         }
@@ -87,7 +80,7 @@ namespace tictactoe
                         if (XOBoard.ticgb[i, j] == '0')
                         {
                             XOBoard.ticgb[i, j] = XOBoard.xo[XOBoard.human];
-                            int score = minimax(true);
+                            int score = minimax(true, depth+1) + depth;
                             XOBoard.ticgb[i, j] = '0';
                             bestScore = Math.Min(score, bestScore);
                         }
