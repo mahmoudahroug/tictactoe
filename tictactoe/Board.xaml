@@ -1,78 +1,101 @@
 ﻿<Page x:Class="tictactoe.Board"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:tictactoe"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Board" MinWidth="410" MinHeight="450">
-    <Page.Resources>
-        <Style TargetType="Button">
-            <!--<Setter Property="OverridesDefaultStyle" Value="True" />-->
-            <Setter Property="Background" Value="Black" />
-            <Setter Property="FontSize" Value="80" />
-            <!--<Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Grid Background="{TemplateBinding Background}">
-                        <ContentPresenter x:Name="MyContentPresenter" 
-                                      Content="{TemplateBinding Content}"
-                                      HorizontalAlignment="Center" 
-                                      VerticalAlignment="Center" />
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>-->
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" Value="Black" />
-                    <Setter Property="FontSize" Value="80" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Page.Resources>
-    <Grid Background="#304262" >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20"/>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition Width="20" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="20"/>
-        </Grid.RowDefinitions>
-        <TextBlock x:Name="textdisplay" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" 
-               Text="Player 1's turn" FontSize="30" RenderTransformOrigin="0,0" 
-               HorizontalAlignment="Center" />
-        <Button x:Name="butt1" Grid.Row="2" Grid.Column="1" Content=""
-            Click="XO_Click"/>
-        <Button x:Name="butt2" Grid.Row="2" Grid.Column="2" Content=""
-            Foreground="Blue" Click="XO_Click"/>
-        <Button x:Name="butt3" Grid.Row="2" Grid.Column="3" Content=""
-            Foreground="Blue" Click="XO_Click"/>
-        <Button x:Name="butt4" Grid.Row="3" Grid.Column="1" Content=""
-            Foreground="Blue" Click="XO_Click"/>
-        <Button x:Name="butt5" Grid.Row="3" Grid.Column="2" Content="" 
-            Foreground="Blue" Click="XO_Click"/>
-        <Button x:Name="butt6" Grid.Row="3" Grid.Column="3" Content="" 
-            Click="XO_Click"/>
-        <Button x:Name="butt7" Grid.Row="4" Grid.Column="1" Content=""
-            Click="XO_Click"/>
-        <Button x:Name="butt8" Grid.Row="4" Grid.Column="2" Content="" 
-            Click="XO_Click"/>
-        <Button x:Name="butt9" Grid.Row="4" Grid.Column="3" Content=""
-            Click="XO_Click"/>
-        <Button x:Name="Play" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3"
+  <Page.Resources>
+    <Style TargetType="Button">
+      <Setter Property="Background" Value="Black" />
+      <Setter Property="FontSize" Value="80" />
+      <Setter Property="Foreground" Value="Blue" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Grid>
+              <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" CornerRadius="5">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+              </Border>
+              <Border x:Name="highlightBorder" Background="Transparent" BorderBrush="White" BorderThickness="2" CornerRadius="5" Opacity="0">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+              </Border>
+            </Grid>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                  <BeginStoryboard>
+                    <Storyboard>
+                      <DoubleAnimation Storyboard.TargetName="highlightBorder" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2"/>
+                    </Storyboard>
+                  </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                  <BeginStoryboard>
+                    <Storyboard>
+                      <DoubleAnimation Storyboard.TargetName="highlightBorder" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2"/>
+                    </Storyboard>
+                  </BeginStoryboard>
+                </Trigger.ExitActions>
+              </Trigger>
+              <Trigger Property="IsPressed" Value="True">
+                <Setter TargetName="border" Property="Background" Value="#304262"/>
+              </Trigger>
+              <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="border" Property="Background" Value="Black" />
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <Style TargetType="TextBlock">
+      <Setter Property="FontSize" Value="30"/>
+      <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+  </Page.Resources>
+  <Grid Background="#304262" >
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="Auto" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <TextBlock x:Name="textdisplay" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"
+               Text="Player 1's turn"/>
+    <Button x:Name="butt1" Grid.Row="2" Grid.Column="1" Content=""
+           Click="XO_Click"/>
+    <Button x:Name="butt2" Grid.Row="2" Grid.Column="2" Content=""
+        Foreground="Blue" Click="XO_Click"/>
+    <Button x:Name="butt3" Grid.Row="2" Grid.Column="3" Content=""
+        Foreground="Blue" Click="XO_Click"/>
+    <Button x:Name="butt4" Grid.Row="3" Grid.Column="1" Content=""
+        Foreground="Blue" Click="XO_Click"/>
+    <Button x:Name="butt5" Grid.Row="3" Grid.Column="2" Content=""
+        Foreground="Blue" Click="XO_Click"/>
+    <Button x:Name="butt6" Grid.Row="3" Grid.Column="3" Content=""
+        Click="XO_Click"/>
+    <Button x:Name="butt7" Grid.Row="4" Grid.Column="1" Content=""
+        Click="XO_Click"/>
+    <Button x:Name="butt8" Grid.Row="4" Grid.Column="2" Content=""
+        Click="XO_Click"/>
+    <Button x:Name="butt9" Grid.Row="4" Grid.Column="3" Content=""
+        Click="XO_Click"/>
+    <Button x:Name="Play" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3"
             Foreground="White" FontSize="30" Content="Play again"
             Visibility="Collapsed" Click="Play_Click"/>
-
-    </Grid>
+  </Grid>
 </Page>

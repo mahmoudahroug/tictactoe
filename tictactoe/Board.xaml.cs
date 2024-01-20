@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,8 +22,9 @@ namespace tictactoe
     public partial class Board : Page
     {// player colors
         SolidColorBrush[] colour = { new SolidColorBrush(Colors.Blue), new SolidColorBrush(Colors.Red) };
-        bool win = false;
+        bool win;
         Button[] albutt;
+        bool[] asserted;
         // play against ai?
         bool computer = true;
         AIbot bot;
@@ -31,7 +33,15 @@ namespace tictactoe
             InitializeComponent();
 
             albutt = new Button[] { butt1, butt2, butt3, butt4, butt5, butt6, butt7, butt8, butt9 };
+            asserted = new bool[9];
             bot = new AIbot(this);
+            win = false;
+            foreach(Button b in albutt)
+            {
+                b.MouseEnter += XO_MouseEnter;
+                b.MouseLeave += XO_MouseLeave;
+
+            }
         }
         public void setComputer(bool comp)
         {
@@ -39,34 +49,11 @@ namespace tictactoe
         }
         private void placeXO(int numButton)
         {
-            if (albutt[numButton].Content.ToString() == "")
+            if (!asserted[numButton])
             {
+                if (win) { return; }
                 // map button to array
-                XOBoard.placeXO(numButton / 3, numButton % 3);
-                loadBoard();
-
-                win = XOBoard.checkWin();
-                // if last turn and no win
-                if (XOBoard.gameTurn >= 9 && !win)
-                {
-                    textdisplay.Text = "It's a draw";
-                    Play.Visibility = Visibility.Visible;
-                    return;
-                }
-                if (win)
-                {
-                    textdisplay.Text = "Player " + XOBoard.getWinner().ToString() + " wins";
-                    foreach (Button butt in albutt)
-                    {
-                        butt.IsEnabled = false;
-                    }
-                    Play.Visibility = Visibility.Visible;
-                    return;
-                }
-                else
-                {
-                    textdisplay.Text = "Player " + XOBoard.getPlayer().ToString() + "'s turn";
-                }
+                placeXO(numButton / 3, numButton % 3);
 
                 // if against computer make computer play here
                 if (computer) { bot.aiplay(); }
@@ -76,7 +63,7 @@ namespace tictactoe
         {
             XOBoard.placeXO(x, y);
             loadBoard();
-
+            asserted[3*x+y] = true;
             win = XOBoard.checkWin();
             // if last turn and no win
             if (XOBoard.gameTurn >= 9 && !win)
@@ -93,10 +80,6 @@ namespace tictactoe
             if (win)
             {
                 textdisplay.Text = "Player " + XOBoard.getWinner().ToString() + " wins";
-                foreach (Button butt in albutt)
-                {
-                    butt.IsEnabled = false;
-                }
                 Play.Visibility = Visibility.Visible;
                 return;
             }
@@ -104,8 +87,9 @@ namespace tictactoe
 
         private void XO_Click(object sender, RoutedEventArgs e)
         {
+            Button button = sender as Button;
             // get index of button pressed
-            int Buttonpressed = ((Button)sender).Name[4] - '0' - 1;
+            int Buttonpressed = button.Name[4] - '0' - 1;
             placeXO(Buttonpressed);
         }
 
@@ -118,6 +102,7 @@ namespace tictactoe
             }
             XOBoard.resetGame();
             win = false;
+            asserted = new bool[9];
             Play.Visibility = Visibility.Collapsed;
             textdisplay.Text = "Player 1's turn";
         }
@@ -128,8 +113,30 @@ namespace tictactoe
                 for (int j = 0; j < 3; j++)
                 {
                     albutt[3 * i + j].Content = XOBoard.ticgb[i, j] == '0' ? "" : XOBoard.ticgb[i, j].ToString();
+                    albutt[3 * i + j].FontSize = 0.7*Math.Min(albutt[3*i+j].ActualHeight, albutt[3 * i + j].ActualWidth);
                     albutt[3 * i + j].Foreground = XOBoard.ticgb[i, j] == 'X' ? colour[0] : colour[1];
                 }
+            }
+        }
+        private void XO_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Button button = sender as Button;
+            int currButton = button.Name[4] - '0' - 1;
+            if (button != null && asserted[currButton] == false)
+            {
+                button.FontSize = 100;
+                button.Content = XOBoard.xo[XOBoard.getPlayer()-1];
+                button.Foreground = colour[XOBoard.getPlayer()-1];
+            }
+        }
+
+        private void XO_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Button button = sender as Button;
+            int currButton = button.Name[4] - '0' - 1;
+            if (button != null && asserted[currButton] == false)
+            {
+                button.Content = "";
             }
         }
     }
