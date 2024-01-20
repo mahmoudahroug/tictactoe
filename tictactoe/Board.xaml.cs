@@ -28,20 +28,26 @@ namespace tictactoe
         // play against ai?
         bool computer = true;
         AIbot bot;
-        public Board()
+        MainMenu mainMenu;
+        MainWindow mainWindow;
+        public Board(MainWindow mw)
         {
             InitializeComponent();
-
             albutt = new Button[] { butt1, butt2, butt3, butt4, butt5, butt6, butt7, butt8, butt9 };
             asserted = new bool[9];
             bot = new AIbot(this);
+            this.mainWindow = mw;
             win = false;
-            foreach(Button b in albutt)
+            foreach (Button b in albutt)
             {
                 b.MouseEnter += XO_MouseEnter;
                 b.MouseLeave += XO_MouseLeave;
 
             }
+        }
+        public void setMainMenu(MainMenu mw)
+        {
+            this.mainMenu = mw;
         }
         public void setComputer(bool comp)
         {
@@ -106,7 +112,7 @@ namespace tictactoe
             Play.Visibility = Visibility.Collapsed;
             textdisplay.Text = "Player 1's turn";
         }
-        private void loadBoard()
+        public void loadBoard()
         {
             for (int i = 0; i < 3; i++)
             {
@@ -138,6 +144,12 @@ namespace tictactoe
             {
                 button.Content = "";
             }
+        }
+
+        private void back_Click(object sender, RoutedEventArgs e)
+        {
+            Play_Click(sender, e);
+            mainWindow.Main.Content = mainMenu;
         }
     }
 }

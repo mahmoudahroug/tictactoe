@@ -28,7 +28,7 @@ namespace tictactoe
         public MainWindow()
         {
             InitializeComponent();
-            b = new Board();
+            b = new Board(this);
             m = new MainMenu(b, this);
             this.Main.Content = m;
         }

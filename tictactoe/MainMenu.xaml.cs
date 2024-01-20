@@ -27,6 +27,7 @@ namespace tictactoe
             InitializeComponent();
             this.m = m;
             this.mw = mw;
+            m.setMainMenu(this);
         }
 
         private void pvc_Click(object sender, RoutedEventArgs e)
