@@ -57,7 +57,6 @@ namespace tictactoe
         {
             if (!asserted[numButton])
             {
-                if (win) { return; }
                 // map button to array
                 placeXO(numButton / 3, numButton % 3);
 
@@ -67,6 +66,7 @@ namespace tictactoe
         }
         public void placeXO(int x, int y)
         {
+            if (win) { return; }
             XOBoard.placeXO(x, y);
             loadBoard();
             asserted[3*x+y] = true;
